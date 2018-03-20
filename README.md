@@ -1,7 +1,7 @@
 # FirebaseIOT
 
 Requirments
-- python 3
+- python3
 - pyrebase
 - Adafruit_DHT
 - Adafruit_MCP3008 (Hardware) 
@@ -12,3 +12,4 @@ References
 - https://learn.adafruit.com/raspberry-pi-analog-to-digital-converters/mcp3008
 
 * install package use pip3 and runscript python use python3
+* check package install command "pip3 list"
