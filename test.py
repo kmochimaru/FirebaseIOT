@@ -5,16 +5,11 @@ import time
 import Adafruit_DHT
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_MCP3008
-from threading import Thread 
+from threading import Thread
 
 #init DHT22
 sensor = Adafruit_DHT.DHT22
 pin = 4
-
-#init MCP3008
-SPI_PORT = 0
-SPI_DEVICE = 0
-mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
 #init GPIO
 GPIO.setmode(GPIO.BOARD)
@@ -34,41 +29,37 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 def stream_handler(message):
-    onChange(message["path"], message["data"]) 
+	onChange(message["path"], message["data"]) 
 
 def onChange(key, value):
 	if(key == "/HeaterStatus"):
-		print("heater status : " + value)
-	elif(key == "/HeaterTimer"):
+		print("heater status : "+ value)
+    elif(key == "/HeaterTimer"):
 		print("heater timer : " + value)
-	elif(key == "/Humidity"):
+    elif(key == "/Humidity"):
 		print("humidity : ", value)
-	elif(key == "/Temperature"):
+    elif(key == "/Temperature"):
 		print("temperature : ", value)
-	elif(key == "/MotorMode"):
+    elif(key == "/MotorMode"):
 		print("motor mode : " + value)
-	elif(key == "/MotorMode"):
+    elif(key == "/MotorMode"):
 		print("motor mode : " + value)
-	elif(key == "/MotorDegree"):
-		print("motor degree : ", value)   
-		
-	 	
+    elif(key == "/MotorDegree"):
+		print("motor degree : " + value)   
+
 db.stream(stream_handler)
 
 def event_sw_heater(arg):
-	if(GPIO.input(sw_heater)==0):
-		db.child("/HeaterStatus").set("ON")
-	else:
-		db.child("/HeaterStatus").set("OFF")
+    if(GPIO.input(sw_heater)==0): db.child("/HeaterStatus").set("ON")
+    else: db.child("/HeaterStatus").set("OFF")
 
 def event_sw_motor(arg):
-	if(GPIO.input(sw_motor)==0):
-		db.child("/MotorMode").set("ON")
-	else:
-		db.child("/MotorMode").set("OFF")
+    if(GPIO.input(sw_motor)==0): db.child("/MotorMode").set("ON")
+    else: db.child("/MotorMode").set("OFF")
 
 GPIO.add_event_detect(sw_heater, GPIO.BOTH, event_sw_heater, bouncetime=50)
 GPIO.add_event_detect(sw_motor, GPIO.BOTH, event_sw_motor, bouncetime=50)
+	
 
 class Dht22:
 	def __init__(self):
@@ -89,13 +80,8 @@ class Dht22:
 MyDht22 = Dht22()
 Dht22Thread = Thread(target=MyDht22.run)
 Dht22Thread.start()
-
+	
 while 1:
-	motor_degree = mcp.read_adc(7)
-	sleep(0.3)
-	if(motor_degree != mcp.read_adc(7) or motor_degree+1 != mcp.read_adc(7)+1 or motor_degree-1 != mcp.read_adc(7) 
-	or motor_degree+2 != mcp.read_adc(7)+1 or motor_degree-2 != mcp.read_adc(7)):
-		db.child("MotorDegree").set(mcp.read_adc(7))
+	print("main program")
+	sleep(1)
 
-
-			
