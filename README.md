@@ -18,4 +18,9 @@ How to set default python3
 - sudo nano ~/.bash_aliases then add alias python=python3
 - source ~/.bash_aliases
 - python --version
+How to set startup python script
+- sudo nano /etc/rc.local
+- add script before exit su pi -c "python3 FirebaseIOT/FirebaseIOT.py"
+- sudo nano /etc/profile
+- add script below sudo /etc/rc.local
 
