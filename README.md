@@ -15,7 +15,7 @@ References
 * check package install command "pip3 list"
 
 How to set default python3
-sudo nano ~/.bash_aliases then alias python=python3
-source ~/.bash_aliases
-python --version
+- sudo nano ~/.bash_aliases then alias python=python3
+- source ~/.bash_aliases
+- python --version
 
