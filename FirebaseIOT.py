@@ -6,7 +6,27 @@ import Adafruit_DHT
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_MCP3008
 from threading import Thread 
+import socket
 
+REMOTE_SERVER = "www.google.com"
+CHK = True
+
+def is_connected(hostname):
+	try:
+		host = socket.gethostbyname(hostname)
+		s = socket.create_connection((host, 80), 2)
+		return True
+	except:
+		pass
+		return False
+
+while CHK:
+	print("Check connection.")
+	sleep(2)
+	if(is_connected(REMOTE_SERVER) == True):
+		print("Connected")
+		CHK=False
+		
 #init DHT22
 sensor = Adafruit_DHT.DHT22
 pin = 4
