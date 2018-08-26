@@ -40,7 +40,6 @@ mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 GPIO.setmode(GPIO.BOARD)
 sw_heater=16
 sw_motor=18
-motorA = 
 GPIO.setup(sw_heater, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(sw_motor, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
