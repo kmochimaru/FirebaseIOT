@@ -113,9 +113,7 @@ Dht22Thread.start()
 while 1:
 	motor_degree = mcp.read_adc(7)
 	sleep(0.3)
-	if(motor_degree != mcp.read_adc(7) or motor_degree+1 != mcp.read_adc(7)+1 or motor_degree-1 != mcp.read_adc(7) 
-	or motor_degree+2 != mcp.read_adc(7)+1 or motor_degree-2 != mcp.read_adc(7)):
-		db.child("MotorDegree").set(mcp.read_adc(7))
+	db.child("MotorDegree").set(mcp.read_adc(7))
 
 
 			
